@@ -1,11 +1,15 @@
 const express = require('express');
 const app = express();
-const stripe = require('stripe')('sk_test_4eC39HqLyjWDarjtT1zdp7dc'); // Replace with your Live Key later
+const stripe = require('stripe')(process.env.STRIPE_KEY);
+
+// Middleware to process payments and form data
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+// Global stats for the Mission Control dashboard
 let stats = { donated: 0, miles: 0, lives: 0, gross: 0 };
 
+// Main Route: The Mission Control Website
 app.get('/', (req, res) => {
     res.send(`
         <body style="background:#ffffff;color:#1a1a1a;text-align:center;font-family:sans-serif;padding:50px;">
@@ -35,17 +39,28 @@ app.get('/', (req, res) => {
     `);
 });
 
+// Stripe Checkout Route
 app.post('/create-checkout-session', async (req, res) => {
-    const session = await stripe.checkout.sessions.create({
-        line_items: [{
-            price_data: { currency: 'usd', product_data: { name: 'STORK DELIVERY TEST' }, unit_amount: 2500 },
-            quantity: 1,
-        }],
-        mode: 'payment',
-        success_url: 'https://groentertainment.com/',
-        cancel_url: 'https://groentertainment.com/',
-    });
-    res.redirect(303, session.url);
+    try {
+        const session = await stripe.checkout.sessions.create({
+            line_items: [{
+                price_data: { 
+                    currency: 'usd', 
+                    product_data: { name: 'STORK DELIVERY TEST' }, 
+                    unit_amount: 2500 
+                },
+                quantity: 1,
+            }],
+            mode: 'payment',
+            success_url: 'https://groentertainment.com/',
+            cancel_url: 'https://groentertainment.com/',
+        });
+        res.redirect(303, session.url);
+    } catch (err) {
+        res.status(500).send(`Stripe Error: ${err.message}`);
+    }
 });
 
-app.listen(process.env.PORT || 3000, () => console.log('STORK PRODUCTION READY.'));
+// Start the Server
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => console.log('STORK PRODUCTION READY ON PORT ' + PORT));
