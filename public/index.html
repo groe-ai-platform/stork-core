@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STORK Delivery | GROE Entertainment</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .stork-blue { background-color: #003366; } /* Official GROE Blue */
+        .stork-red { background-color: #e11d48; }  /* Accent Red */
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .glass-nav { background: rgba(255, 255, 255, 0.98); backdrop-filter: blur(10px); }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans text-gray-900">
+
+    <nav class="glass-nav sticky top-0 z-50 border-b border-gray-200 py-3 px-4 md:px-8 flex items-center justify-between">
+        <div class="flex items-center gap-6">
+            <h1 class="text-3xl font-black text-blue-900 tracking-tighter italic">STORK</h1>
+            <div class="hidden md:flex bg-gray-100 rounded-full px-4 py-2 items-center gap-2 border border-gray-200 cursor-pointer hover:bg-gray-200 transition">
+                <i class="fa-solid fa-location-dot text-rose-500"></i>
+                <span class="text-sm font-bold">Richton Park, IL</span>
+                <i class="fa-solid fa-chevron-down text-[10px] text-gray-500"></i>
+            </div>
+        </div>
+        
+        <div class="flex-1 max-w-2xl mx-8 hidden lg:block">
+            <div class="relative">
+                <input type="text" placeholder="Search restaurants, groceries, fast food..." class="w-full bg-gray-100 border-none rounded-full py-2.5 px-12 focus:ring-2 focus:ring-blue-900 transition">
+                <i class="fa-solid fa-magnifying-glass absolute left-5 top-3.5 text-gray-400"></i>
+            </div>
+        </div>
+
+        <div class="flex items-center gap-3">
+            <button class="font-bold text-sm px-4 py-2 rounded-full hover:bg-gray-100">Sign In</button>
+            <button class="stork-blue text-white px-6 py-2 rounded-full font-bold shadow-lg shadow-blue-900/30 flex items-center gap-2">
+                <i class="fa-solid fa-cart-shopping"></i> 0
+            </button>
+        </div>
+    </nav>
+
+    <div class="max-w-7xl mx-auto px-4 md:px-8 mt-6">
+        <div class="w-full h-48 md:h-64 stork-blue rounded-3xl p-8 flex items-center justify-between text-white relative overflow-hidden">
+            <div class="z-10 relative">
+                <span class="bg-rose-500 text-[10px] uppercase font-black px-2 py-1 rounded mb-4 inline-block">Featured: GROE Gourmet</span>
+                <h2 class="text-3xl md:text-5xl font-black mb-2">Free Delivery on<br>Your First Order!</h2>
+                <p class="text-blue-100 font-medium">Use code: <span class="font-black text-white">STORK2026</span></p>
+            </div>
+            <div class="opacity-20 absolute right-[-20px] bottom-[-20px] text-[200px]">
+                <i class="fa-solid fa-dove"></i>
+            </div>
+        </div>
+    </div>
+
+    <div class="flex gap-6 overflow-x-auto px-4 md:px-8 py-8 no-scrollbar bg-transparent">
+        <div class="flex flex-col items-center gap-2 min-w-[100px] cursor-pointer group">
+            <div class="w-20 h-20 bg-white rounded-full shadow-sm border border-gray-100 flex items-center justify-center text-3xl group-hover:shadow-md transition">🍔</div>
+            <span class="text-xs font-black text-gray-600">Fast Food</span>
+        </div>
+        <div class="flex flex-col items-center gap-2 min-w-[100px] cursor-pointer group">
+            <div class="w-20 h-20 bg-white rounded-full shadow-sm border border-gray-100 flex items-center justify-center text-3xl group-hover:shadow-md transition">🍖</div>
+            <span class="text-xs font-black text-gray-600">Illinois BBQ</span>
+        </div>
+        <div class="flex flex-col items-center gap-2 min-w-[100px] cursor-pointer group">
+            <div class="w-20 h-20 bg-white rounded-full shadow-sm border border-gray-100 flex items-center justify-center text-3xl group-hover:shadow-md transition">🍕</div>
+            <span class="text-xs font-black text-gray-600">Pizza</span>
+        </div>
+        <div class="flex flex-col items-center gap-2 min-w-[100px] cursor-pointer group">
+            <div class="w-20 h-20 bg-white rounded-full shadow-sm border border-gray-100 flex items-center justify-center text-3xl group-hover:shadow-md transition">🛒</div>
+            <span class="text-xs font-black text-gray-600">Grocery</span>
+        </div>
+        <div class="flex flex-col items-center gap-2 min-w-[100px] cursor-pointer group">
+            <div class="w-20 h-20 bg-white rounded-full shadow-sm border border-gray-100 flex items-center justify-center text-3xl group-hover:shadow-md transition">🥩</div>
+            <span class="text-xs font-black text-gray-600">Steakhouse</span>
+        </div>
+    </div>
+
+    <main class="max-w-7xl mx-auto px-4 md:px-8 pb-20">
+        <div class="flex items-center justify-between mb-8">
+            <h2 class="text-2xl font-black italic text-blue-900 uppercase tracking-tight">Nearby Restaurants</h2>
+            <button class="text-rose-500 font-bold text-sm">See All <i class="fa-solid fa-arrow-right"></i></button>
+        </div>
+        
+        <div id="restaurant-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+            <div class="animate-pulse bg-gray-200 h-72 rounded-3xl"></div>
+            <div class="animate-pulse bg-gray-200 h-72 rounded-3xl"></div>
+            <div class="animate-pulse bg-gray-200 h-72 rounded-3xl"></div>
+        </div>
+    </main>
+
+    <footer class="bg-white border-t border-gray-200 py-10 px-4 text-center">
+        <p class="font-black text-blue-900 tracking-tighter mb-2">STORK BY GROE ENTERTAINMENT, INC.</p>
+        <p class="text-xs text-gray-400">© 2026 Mr. M Collins. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        // THE ENGINE: FETCHES LIVE DATA FROM YOUR API
+        async function loadStorkEngine() {
+            try {
+                const response = await fetch('/api/restaurants');
+                const restaurants = await response.json();
+                const grid = document.getElementById('restaurant-grid');
+                grid.innerHTML = '';
+
+                restaurants.forEach(res => {
+                    grid.innerHTML += `
+                        <div class="group cursor-pointer relative">
+                            <div class="relative overflow-hidden rounded-[2rem] h-56 mb-4 shadow-xl border-4 border-white">
+                                <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=800" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                                <div class="absolute bottom-0 left-0 right-0 h-1/2 bg-gradient-to-t from-black/60 to-transparent"></div>
+                                <div class="absolute bottom-4 left-4 text-white">
+                                    <span class="text-[10px] font-black uppercase tracking-widest bg-rose-500 px-2 py-0.5 rounded">Fastest Delivery</span>
+                                </div>
+                            </div>
+                            <div class="flex justify-between items-start px-1">
+                                <div>
+                                    <h3 class="font-black text-xl text-blue-950">${res.name}</h3>
+                                    <p class="text-sm text-gray-500 font-bold">${res.eta} • $${res.deliveryFee} fee • 4.9 <i class="fa-solid fa-star text-yellow-400"></i></p>
+                                </div>
+                                <button onclick="checkout('${res.name}')" class="stork-blue text-white w-10 h-10 rounded-full flex items-center justify-center shadow-lg hover:scale-110 transition active:scale-95">
+                                    <i class="fa-solid fa-plus"></i>
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                });
+            } catch (err) {
+                console.error("STORK Critical Error:", err);
+                document.getElementById('restaurant-grid').innerHTML = '<p class="text-rose-500 font-bold">STORK API Connection Failed. Please check Render Dashboard.</p>';
+            }
+        }
+
+        function checkout(name) {
+            alert("Redirecting to GROE Secure Checkout for " + name + "...");
+        }
+
+        loadStorkEngine();
+    </script>
+</body>
+</html>
