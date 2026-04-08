@@ -2,9 +2,19 @@ const express = require('express');
 const app = express();
 const stripe = require('stripe')(process.env.STRIPE_KEY);
 
+// STORK ENGINE ROUTES
+const authRoutes = require('./routes/auth');
+const restaurantRoutes = require('./routes/restaurants');
+const orderRoutes = require('./routes/orders');
+
 // Middleware to process payments and form data
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+// PLUG IN THE NEW STORK ENGINES
+app.use('/api/auth', authRoutes);
+app.use('/api/restaurants', restaurantRoutes);
+app.use('/api/orders', orderRoutes);
 
 // Global stats for the Mission Control dashboard
 let stats = { donated: 0, miles: 0, lives: 0, gross: 0 };
@@ -35,11 +45,12 @@ app.get('/', (req, res) => {
                     </button>
                 </form>
             </div>
+            <p style="margin-top:20px;font-size:0.8em;color:#888;">GROE Entertainment, Inc. | Illinois Division</p>
         </body>
     `);
 });
 
-// Stripe Checkout Route
+// Original Stripe Checkout Route (Legacy)
 app.post('/create-checkout-session', async (req, res) => {
     try {
         const session = await stripe.checkout.sessions.create({
@@ -52,8 +63,8 @@ app.post('/create-checkout-session', async (req, res) => {
                 quantity: 1,
             }],
             mode: 'payment',
-            success_url: 'https://groentertainment.com/',
-            cancel_url: 'https://groentertainment.com/',
+            success_url: 'https://stork-main.onrender.com?success=true',
+            cancel_url: 'https://stork-main.onrender.com?cancel=true',
         });
         res.redirect(303, session.url);
     } catch (err) {
@@ -63,4 +74,6 @@ app.post('/create-checkout-session', async (req, res) => {
 
 // Start the Server
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log('STORK PRODUCTION READY ON PORT ' + PORT));
+app.listen(PORT, () => {
+    console.log(`STORK ENGINE ONLINE ON PORT ${PORT}`);
+});
